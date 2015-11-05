@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>ASSE - Audio Similarity Search Engine</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
@@ -11,6 +11,7 @@
 </head>
 <body>
     Welcome to ASSE!
+    <p><input type=file id="file-input"></p>
     <p><a href=# id="search">search for who knows what</a></p>
     <p id="result"/>
 </body>
