@@ -17,7 +17,6 @@ def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_d
     for sig_file in signature_files:
         signature = numpy.load(sig_file)
         similarity = engine_class.measure_similarity(sig_track, signature)
-        print("Computed similarity for file " + sig_file + ", it is " + str(similarity))
 
         if len(h) < n_tracks:
             heapq.heappush(h, (similarity, sig_file))
