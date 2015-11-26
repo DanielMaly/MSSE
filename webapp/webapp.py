@@ -13,9 +13,9 @@ app = Flask(__name__)
 #conn = psycopg2.connect(database="asse", user="asse", password="zabalenymotylek2015")
 #cur = conn.cursor()
 
-ALLOWED_UPLOAD_EXTENSIONS = {'mp3', 'wav'}
+ALLOWED_UPLOAD_EXTENSIONS = {'mp3', 'wav', 'au'}
 DEFAULT_DATASET = "genres"
-DEFAULT_ENGINE = engine.MandelEllisEngine
+DEFAULT_ENGINE = engine.MelEngine
 UPLOAD_FOLDER = "uploaded"
 
 
@@ -30,6 +30,7 @@ def search():
         file = request.files['file']
 
         if file and allowed_file(file.filename):
+            print ("nacitam "); print(file.filename)
             sec_filename = werkzeug.utils.secure_filename(file.filename)
             path = os.path.join(UPLOAD_FOLDER, sec_filename)
             util.mkdir_p(UPLOAD_FOLDER)
@@ -41,7 +42,7 @@ def search():
 
 
 def search_results(path):
-    data, rate = librosa.load(path)
+    (data, rate) = librosa.load(path)
     return srch.search_greatest_similarity(data, rate, DEFAULT_ENGINE, DEFAULT_DATASET)
 
 

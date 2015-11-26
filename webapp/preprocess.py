@@ -36,7 +36,9 @@ if __name__ == '__main__':
 
     util.mkdir_p(dest_dir)
 
+    print("Looking for audio files in " + dir_name)
     filenames = get_all_files_in_tree(dir_name)
+    print("Found " + str(len(filenames)) + " audio files.")
     i = 0
     for filename in filenames:
         data, rate = librosa.load(filename)

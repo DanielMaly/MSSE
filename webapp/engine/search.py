@@ -5,7 +5,7 @@ import glob
 import heapq
 import numpy
 
-SIGNATURE_PARENT_DIR = os.path.join("data", "similarity")
+SIGNATURE_PARENT_DIR = os.path.join("data", "signatures")
 
 
 def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_dir=SIGNATURE_PARENT_DIR, n_tracks=10):
@@ -14,6 +14,7 @@ def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_d
     signature_files = glob.iglob(os.path.join(signature_path, "**/*.*"))
 
     h = []
+    print(h.__sizeof__())
     for sig_file in signature_files:
         signature = numpy.load(sig_file)
         similarity = engine_class.measure_similarity(sig_track, signature)
