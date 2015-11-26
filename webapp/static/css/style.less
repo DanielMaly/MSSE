@@ -1,0 +1,24 @@
+@import (less)"bootstrap.min.css";
+@import (less)"basic.min.css";
+@import (less)"dropzone.min.css";
+@import "lesshat";
+
+@black: rgba(0,0,0,0.7);
+@red: #ee1b3b;
+@lightRed: rgba(238, 27, 59, 0.7);
+@gray: rgba(204, 204, 204, 0.7);
+
+html, body {
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	background: @black;
+	text-align: center;
+	-webkit-font-smoothing: antialiased;
+	font-family: 'OpenSans', Arial, sans-serif;
+	position: relative;
+}
+
+@import "dropzone-custom";
+@import "listing";
+

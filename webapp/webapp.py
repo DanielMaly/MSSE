@@ -34,10 +34,26 @@ def search():
             path = os.path.join(UPLOAD_FOLDER, sec_filename)
             util.mkdir_p(UPLOAD_FOLDER)
             file.save(path)
-            return jsonify(result=search_results(path))
+            return jsonify(result=process_search_results(search_results(path)))
 
         else:
             return jsonify(result="You nit.")
+
+
+def process_search_results(results):
+    for result in results:
+        print(result)
+
+    ret = []
+    for similarity, signature_file in results:
+        ret.append({
+            "signature_file": signature_file,
+            "name": signature_file,
+            "similarity": similarity,
+            "star_rating": 3,
+            "audio_url": signature_file
+        })
+    return ret
 
 
 def search_results(path):
