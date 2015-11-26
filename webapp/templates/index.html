@@ -2,17 +2,32 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/fav/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>ASSE - Audio Similarity Search Engine</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='dropzone.js') }}"></script>
     <script src="{{ url_for('static', filename='search.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    Welcome to ASSE!
-    <p><input type=file id="file-input"></p>
-    <p><a href=# id="search">search for who knows what</a></p>
-    <p id="result"/>
+
+    <div class="upload-form">
+        <form action="/file-upload" id="dropzone">
+            <p class="user-info">Feel free to drop your music file here!</p>
+        </form>
+    </div>
+    <div class="listing">
+        <ul id="result-listing"></ul>
+    </div>
+
 </body>
 </html>

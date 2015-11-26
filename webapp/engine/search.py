@@ -26,4 +26,4 @@ def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_d
             heapq.heappushpop(h, (similarity, sig_file))
 
     h.sort()
-    return h
+    return h[::-1]
