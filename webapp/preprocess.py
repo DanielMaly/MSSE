@@ -32,7 +32,7 @@ if __name__ == '__main__':
     engine_class = getattr(engine, sys.argv[2])
 
     signatureset_identifier = engine_class.get_engine_identifier()
-    dest_dir = os.path.join("data", "similarity", sys.argv[1], signatureset_identifier)
+    dest_dir = os.path.join("data", "signatures", sys.argv[1], signatureset_identifier)
 
     util.mkdir_p(dest_dir)
 

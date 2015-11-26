@@ -63,7 +63,8 @@ class MandelEllisEngine(Engine):
         result = inv_trace - 2*d + mean_product
 
         div = result / 2
-        return numpy.exp(-cls.gamma * div)
+        # return numpy.exp(-cls.gamma * div)
+        return 1 / (1 + div)
 
     @classmethod
     def get_engine_identifier(cls):
@@ -116,7 +117,7 @@ class MelEngine(Engine):
         #result = inv_trace - 2*d + mean_product
 
         #div = result / 2
-        return numpy.sqrt(pow(numpy.mean(d1),2))
+        return 1 / (1 + numpy.sqrt(pow(numpy.mean(d1), 2)))
 
     @classmethod
     def get_engine_identifier(cls):

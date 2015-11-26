@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 ALLOWED_UPLOAD_EXTENSIONS = {'mp3', 'wav', 'au'}
 DEFAULT_DATASET = "genres"
-DEFAULT_ENGINE = engine.MelEngine
+DEFAULT_ENGINE = engine.MandelEllisEngine
 UPLOAD_FOLDER = "uploaded"
 
 
@@ -30,7 +30,6 @@ def search():
         file = request.files['file']
 
         if file and allowed_file(file.filename):
-            print ("nacitam "); print(file.filename)
             sec_filename = werkzeug.utils.secure_filename(file.filename)
             path = os.path.join(UPLOAD_FOLDER, sec_filename)
             util.mkdir_p(UPLOAD_FOLDER)
@@ -46,13 +45,13 @@ def process_search_results(results):
         print(result)
 
     ret = []
-    for similarity, signature_file in results:
+    for result in results:
         ret.append({
-            "signature_file": signature_file,
-            "name": signature_file,
-            "similarity": similarity,
-            "star_rating": 3,
-            "audio_url": signature_file
+            "signature_file": result["signature_file"],
+            "name": result["signature_file"],
+            "similarity": result["absolute_similarity"],
+            "standardized_similarity": result["standardized_similarity"],
+            "audio_url": result["signature_file"]
         })
     return ret
 
@@ -69,3 +68,4 @@ def allowed_file(filename):
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
+

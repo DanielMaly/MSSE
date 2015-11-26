@@ -33,7 +33,6 @@ function parseResults(results){
 	$.each(results, function(index, value){
 		name = value["name"];
 		url = value["audio_url"];
-        rating = value["star_rating"];
         similarity = value["similarity"];
 		renderResult(name, url, rating, similarity);
 	});
@@ -44,7 +43,7 @@ function parseResults(results){
 	})
 }
 
-function renderResult(name, url, rating, similarity){
+function renderResult(name, url, similarity){
 	var link = '<a href="' + url + '">' + name + '</a>';
 	var star = '<span class="star"></span>';
 	var starWrapper = '<div class="star-wrapper">' + star + '</div>';

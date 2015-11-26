@@ -4,6 +4,7 @@ import os
 import glob
 import heapq
 import numpy
+import scipy.stats as stats
 
 SIGNATURE_PARENT_DIR = os.path.join("data", "signatures")
 
@@ -14,10 +15,11 @@ def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_d
     signature_files = glob.iglob(os.path.join(signature_path, "**/*.*"))
 
     h = []
-    print(h.__sizeof__())
+    sim_vector = []
     for sig_file in signature_files:
         signature = numpy.load(sig_file)
         similarity = engine_class.measure_similarity(sig_track, signature)
+        sim_vector.append(similarity)
 
         if len(h) < n_tracks:
             heapq.heappush(h, (similarity, sig_file))
@@ -26,4 +28,17 @@ def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_d
             heapq.heappushpop(h, (similarity, sig_file))
 
     h.sort()
-    return h[::-1]
+    h = h[::-1]
+    sim_vector_np = numpy.array(sim_vector)
+    mn = numpy.mean(sim_vector_np)
+    sd = numpy.std(sim_vector_np)
+
+    ret = []
+    for s in h:
+        ret.append({
+            "absolute_similarity": s[0],
+            "standardized_similarity": stats.chi2.cdf(s[0], 5, mn, sd),
+            "signature_file": s[1]
+        })
+
+    return ret
