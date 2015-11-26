@@ -23,16 +23,16 @@ def get_all_files_in_tree(dir_path):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        print("Usage: python3 preprocess.py src_dir dest_dir engine_class")
+    if len(sys.argv) != 3:
+        print("Usage: python3 preprocess.py source_audioset engine_class")
         exit()
 
     dir_name = os.path.join("data", "audio", sys.argv[1])
 
-    engine_class = getattr(engine, sys.argv[3])
+    engine_class = getattr(engine, sys.argv[2])
 
     signatureset_identifier = engine_class.get_engine_identifier()
-    dest_dir = os.path.join(sys.argv[2], signatureset_identifier)
+    dest_dir = os.path.join("data", "similarity", sys.argv[1], signatureset_identifier)
 
     util.mkdir_p(dest_dir)
 
