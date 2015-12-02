@@ -44,10 +44,11 @@ function parseResults(results){
 }
 
 function renderResult(name, url, similarity){
+	var audio = '<audio controls><source src="' + url + '"/></audio>'
 	var link = '<a href="' + url + '">' + name + '</a>';
 	var star = '<span class="star"></span>';
 	var starWrapper = '<div class="star-wrapper">' + star + '</div>';
-	var html = '<li>' + link + starWrapper + '</li>';
+	var html = '<li>' + audio + link + starWrapper + '</li>';
 
 	$('#result-listing').append(html);
 }

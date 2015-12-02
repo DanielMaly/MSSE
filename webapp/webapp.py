@@ -40,9 +40,9 @@ def search():
             return jsonify(result="You nit.")
 
 
-@app.route('/play/data/audio/<path:path>')
+@app.route('/play/data/wav/<path:path>')
 def get_audio(path):
-    return send_file(os.path.join('data', 'audio', path))
+    return send_file(os.path.join('data', 'wav', path))
 
 
 def process_search_results(results):
@@ -56,7 +56,7 @@ def process_search_results(results):
             "name": result["signature"].audio_track.name,
             "similarity": result["absolute_similarity"],
             "standardized_similarity": result["standardized_similarity"],
-            "audio_url": os.path.join('play', result["signature"].audio_track.path)
+            "audio_url": audio_url_for_file(result["signature"].audio_track)
         })
     return ret
 
@@ -69,6 +69,16 @@ def search_results(path):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_UPLOAD_EXTENSIONS
+
+def audio_url_for_file(audio_track):
+    util.mkdir_p(os.path.join('data', 'wav'))
+
+    wav_path = os.path.join('data', 'wav', str(audio_track.id) + ".wav")
+    if not os.path.isfile(wav_path):
+        data, rate = librosa.load(audio_track.path)
+        librosa.output.write_wav(wav_path, data, rate)
+
+    return os.path.join('play', wav_path)
 
 
 if __name__ == '__main__':
