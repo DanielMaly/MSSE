@@ -67,4 +67,4 @@ class TrackSignature(db.Model):
         self.audio_track = audio_track
 
     def __repr__(self):
-        return '<TrackSignature engine: %r | track: %r>' % self.engine_class, self.audio_track.name
+        return '<TrackSignature engine: ' + self.engine_class + '| track: %r>' % self.audio_track.name

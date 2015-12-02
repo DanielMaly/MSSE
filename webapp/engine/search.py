@@ -39,7 +39,7 @@ def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_d
         ret.append({
             "absolute_similarity": s[0],
             "standardized_similarity": stats.chi2.cdf(s[0], 5, mn, sd),
-            "signature_file": s[1].path
+            "signature": s[1]
         })
 
     return ret

@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, send_file
 import werkzeug.utils
 import psycopg2
 import os
@@ -40,6 +40,11 @@ def search():
             return jsonify(result="You nit.")
 
 
+@app.route('/play/data/audio/<path:path>')
+def get_audio(path):
+    return send_file(os.path.join('data', 'audio', path))
+
+
 def process_search_results(results):
     for result in results:
         print(result)
@@ -47,11 +52,11 @@ def process_search_results(results):
     ret = []
     for result in results:
         ret.append({
-            "signature_file": result["signature_file"],
-            "name": result["signature_file"],
+            "signature_file": result["signature"].path,
+            "name": result["signature"].audio_track.name,
             "similarity": result["absolute_similarity"],
             "standardized_similarity": result["standardized_similarity"],
-            "audio_url": result["signature_file"]
+            "audio_url": os.path.join('play', result["signature"].audio_track.path)
         })
     return ret
 
