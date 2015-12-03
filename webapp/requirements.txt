@@ -1,9 +1,9 @@
 #python3
 
 flask==0.10.1
-psycopg2==2.6.1
+# psycopg2==2.6.1
 librosa>=0.4.1
 
 # libsamplerate-dev
-# scikits.samplerate z z git@github.com:gregorias/samplerate.git
+# scikits.samplerate z git@github.com:gregorias/samplerate.git
 # ffmpeg pro podporu mp3 (pouze Ubuntu, na Win mozna neni potreba)

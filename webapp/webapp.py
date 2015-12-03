@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import render_template, request, jsonify, send_file
 import werkzeug.utils
-import psycopg2
 import os
 import engine.search as srch
 import librosa
@@ -9,9 +8,6 @@ import util
 import engine.engine as engine
 
 app = Flask(__name__)
-
-#conn = psycopg2.connect(database="asse", user="asse", password="zabalenymotylek2015")
-#cur = conn.cursor()
 
 ALLOWED_UPLOAD_EXTENSIONS = {'mp3', 'wav', 'au'}
 DEFAULT_DATASET = "genres"
