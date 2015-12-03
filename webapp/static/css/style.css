@@ -7331,3 +7331,15 @@ body {
   left: 0;
   display: none;
 }
+.listing #search-again {
+  margin: 30px auto;
+  display: block;
+  text-decoration: none;
+  background-color: #ee1b3b;
+  width: 200px;
+  height: 66px;
+  padding-top: 18px;
+  border-radius: 7px;
+  font-size: 20px;
+  color: inherit;
+}

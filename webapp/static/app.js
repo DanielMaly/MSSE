@@ -21,6 +21,7 @@ $(document).ready(function () {
 
 	})
 
+
 })
 
 function getAcceptedFiles() {
@@ -28,13 +29,15 @@ function getAcceptedFiles() {
 }
 
 function parseResults(results){
-	var name, artist, url, rating, similarity;
+	var name, artist, url, rating, similarity, orig_file, orig_url;
 
 	$.each(results, function(index, value){
 		name = value["name"];
 		url = value["audio_url"];
         similarity = value["similarity"];
-		renderResult(name, url, rating, similarity);
+        orig_file = value["original_file"];
+        orig_url = value["original_audio_url"];
+		renderResult(name, url, similarity, orig_file, orig_url);
 	});
 
 	setRatingValue();
@@ -43,7 +46,8 @@ function parseResults(results){
 	})
 }
 
-function renderResult(name, url, similarity){
+
+function renderResult(name, url, similarity, orig_file, orig_url){
 	var audio = '<audio controls><source src="' + url + '"/></audio>'
 	var link = '<a href="' + url + '">' + name + '</a>';
 	var star = '<span class="star"></span>';
@@ -51,6 +55,7 @@ function renderResult(name, url, similarity){
 	var html = '<li>' + audio + link + starWrapper + '</li>';
 
 	$('#result-listing').append(html);
+    $('#original-file-info span').html(orig_file)
 }
 
 function setRatingValue(){
