@@ -24,17 +24,16 @@ $(document).ready(function () {
 	$('.listing').on('click', '.control', function() {
         if($(this).hasClass('play')) {
             $(this).parent().find('audio').trigger('play')
+			var oThis = this
+			$(this).parent().find('audio').one('ended', function() {
+				$(oThis).toggleClass('pause play')
+			})
         }
         else {
             $(this).parent().find('audio').trigger('pause')
         }
         $(this).toggleClass('pause play');
 	});
-
-    $('.listing').on('ended', 'audio', function() {
-        $(this).parent().find('.control').removeClass('pause')
-        $(this).parent().find('.control').addClass('play')
-    })
 
 
 })
@@ -67,15 +66,15 @@ function ended() {
 
 
 function renderResult(name, url, similarity, orig_file, orig_url){
-	var audio = '<audio onended="ended()"><source src="' + url + '"/></audio>'
+	var audio = '<audio><source src="' + url + '"/></audio>'
 	var play_button = '<div class="control play"><span class="left"></span><span class="right"></span></div>'
 	var link = '<a href="' + url + '">' + name + '</a>';
 	var star = '<span class="star"></span>';
 	var starWrapper = '<div class="star-wrapper">' + star + '</div>';
-	var html = '<li>' + '<span class="audio-elements">' +audio + play_button + '</span>' + link + starWrapper + '</li>';
+	var html = '<li>' + '<span class="audio-elements">' + audio + play_button + '</span>' + link + starWrapper + '</li>';
 
 	$('#result-listing').append(html);
-    $('#original-file-info span').html(orig_file)
+    $('#original-file-name').html(orig_file)
 }
 
 function setRatingValue(){
