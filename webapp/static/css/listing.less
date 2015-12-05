@@ -2,7 +2,8 @@
 	position: relative;
 	width: 800px;
 	margin: 0 auto;
-	padding: 150px 0;
+	padding-top: 80px;
+	padding-bottom: 80px;
 	display: none;
 
 	ul{
@@ -50,26 +51,14 @@
 				.star{
 					margin: 0px 0px 0px 2px;
 					display: inline-block;
-					position: relative;
-					width: 26px;
-					height: 26px;
-					background: url("../img/star.png");
-					z-index: 5;
-					.background-size(contain);
-
-					&:after{
-						content: '';
-						position: absolute;
-						width: 100%;
-						height: 100%;
-						background: @red;
-						top: 0;
-						left: 0;
-						display: none;
-					}
+					color: @similarity_gray;
 				}
 			}
 		}
+	}
+
+	#original-file-name {
+		margin-bottom: 36px;
 	}
 
     #search-again {

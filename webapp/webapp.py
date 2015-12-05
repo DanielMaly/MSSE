@@ -30,7 +30,7 @@ def search():
             path = os.path.join(UPLOAD_FOLDER, sec_filename)
             util.mkdir_p(UPLOAD_FOLDER)
             file.save(path)
-            return jsonify(result=process_search_results(search_results(path), sec_filename))
+            return jsonify(process_search_results(search_results(path), sec_filename))
 
         else:
             return jsonify(result="You nit.")
@@ -50,17 +50,19 @@ def process_search_results(results, uploaded_file):
     for result in results:
         print(result)
 
-    ret = []
+    h, ret = [], {}
     for result in results:
-        ret.append({
+        h.append({
             "signature_file": result["signature"].path,
             "name": result["signature"].audio_track.name,
-            "similarity": result["absolute_similarity"],
+            "similarity": "{0:.4f}".format(result["absolute_similarity"]),
             "standardized_similarity": result["standardized_similarity"],
-            "audio_url": audio_url_for_file(result["signature"].audio_track),
-            "original_file": uploaded_file,
-            "original_audio_url": audio_url_for_file(uploaded_file, uploaded=True)
+            "audio_url": audio_url_for_file(result["signature"].audio_track)
         })
+
+    ret['original_file'] = uploaded_file
+    ret['original_audio_url'] = audio_url_for_file(uploaded_file, uploaded=True)
+    ret['results'] = h
     return ret
 
 
