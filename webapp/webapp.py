@@ -6,6 +6,7 @@ import engine.search as srch
 import librosa
 import util
 import engine.engine as engine
+import db.database as db
 
 app = Flask(__name__)
 
@@ -17,7 +18,9 @@ UPLOAD_FOLDER = "uploaded"
 
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    datasets = db.Dataset.query.all()
+    engines = db.EngineModel.query.all()
+    return render_template('index.html', datasets=datasets, engines=engines)
 
 
 @app.route('/search', methods=['POST'])
