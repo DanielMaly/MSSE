@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 ALLOWED_UPLOAD_EXTENSIONS = {'mp3', 'wav', 'au'}
 DEFAULT_DATASET = "genres"
-DEFAULT_ENGINE = engine.MandelEllisEngine
+DEFAULT_ENGINE = "MandelEllisEngine"
 UPLOAD_FOLDER = "uploaded"
 
 
@@ -33,8 +33,9 @@ def search():
             path = os.path.join(UPLOAD_FOLDER, sec_filename)
             util.mkdir_p(UPLOAD_FOLDER)
             file.save(path)
-            return jsonify(process_search_results(search_results(path), sec_filename))
-
+            search_result_list = search_results(path, engine=request.form['engine'],
+                                                      dataset=request.form['dataset'])
+            return jsonify(process_search_results(search_result_list, sec_filename))
         else:
             return jsonify(result="You nit.")
 
@@ -69,7 +70,7 @@ def process_search_results(results, uploaded_file):
     return ret
 
 
-def search_results(path):
+def search_results(path, dataset=DEFAULT_DATASET, engine=DEFAULT_ENGINE):
     (data, rate) = librosa.load(path)
     return srch.search_greatest_similarity(data, rate, DEFAULT_ENGINE, DEFAULT_DATASET)
 

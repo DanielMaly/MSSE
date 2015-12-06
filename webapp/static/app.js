@@ -20,6 +20,10 @@ $(document).ready(function () {
         parseResults(response);
 
     })
+    myDropzone.on("sending", function(file, xhr, formData) {
+        formData.append("dataset", $("#dataset").val())
+        formData.append("engine", $("#engine").val())
+    })
 
     $('.listing').on('click', '.control', function () {
         if ($(this).hasClass('play')) {
@@ -91,7 +95,7 @@ function parseResults(result) {
     });
 
     $('#original-file-name').html(result["original_file"])
-    $('.listing audio').attr('src', result["original_audio_url"])
+    $('.original-file audio').attr('src', result["original_audio_url"])
 
     $('.upload-form').fadeOut(function () {
         $('.listing').fadeIn();

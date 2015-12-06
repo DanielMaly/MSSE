@@ -1,7 +1,7 @@
 #python3
 
 flask==0.10.1
-# psycopg2==2.6.1
+flask_sqlalchemy>=0.7
 librosa>=0.4.1
 
 # libsamplerate-dev

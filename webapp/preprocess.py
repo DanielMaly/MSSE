@@ -35,9 +35,9 @@ if __name__ == '__main__':
     engine_class = getattr(engine, sys.argv[2])
 
     # Save the engine
-    engine_model = database.EngineModel.query.filter_by(clazz=engine_class.get_engine_identifier()).first()
+    engine_model = database.EngineModel.query.filter_by(clazz=sys.argv[2]).first()
     if engine_model is None:
-        engine_model = database.EngineModel(engine_class.get_engine_identifier())
+        engine_model = database.EngineModel(sys.argv[2])
         database.db.session.add(engine_model)
 
     signatureset_identifier = engine_class.get_engine_identifier()

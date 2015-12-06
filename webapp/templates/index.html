@@ -24,7 +24,7 @@
             <div class="settings">
                 <div class="row">
                     <label for="dataset">Dataset</label>
-                    <select class="custom-select sources" placeholder="{{ datasets[0].name }}" name="dataset">
+                    <select class="custom-select sources" placeholder="{{ datasets[0].name }}" name="dataset" id="dataset">
                         {% for dataset in datasets %}
                          <option {% if loop.index == 1 %} selected {% endif %} value="{{ dataset.name }}">{{ dataset.name }}</option>
                         {% endfor %}
@@ -32,7 +32,7 @@
                 </div>
                 <div class="row">
                     <label for="engine">Engine</label>
-                    <select class="custom-select" name="dataset" placeholder="{{ engines[0].clazz }}">
+                    <select class="custom-select" name="dataset" placeholder="{{ engines[0].clazz }}" id="engine">
                         {% for engine in engines %}
                          <option {% if loop.index == 1 %} selected {% endif %} value="{{ engine.clazz }}">{{ engine.clazz }}</option>
                         {% endfor %}

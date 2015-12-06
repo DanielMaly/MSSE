@@ -5,6 +5,7 @@ import heapq
 import numpy
 import scipy.stats as stats
 import db.database as db
+import engine.engine as engine
 
 SIGNATURE_PARENT_DIR = os.path.join("data", "signatures")
 
@@ -18,10 +19,11 @@ class Similarity:
         return self.similarity_measure < other.similarity_measure
 
 
-def search_greatest_similarity(data, rate, engine_class, dataset_id, signature_dir=SIGNATURE_PARENT_DIR, n_tracks=10):
+def search_greatest_similarity(data, rate, engine_classname, dataset_id, signature_dir=SIGNATURE_PARENT_DIR, n_tracks=10):
+    engine_class = getattr(engine, engine_classname)
     sig_track = engine_class.extract_signature(data, rate)
     signatures = db.TrackSignature.query.filter(db.TrackSignature.audio_track.has(dataset_name=dataset_id))\
-        .filter_by(engine_class=engine_class.get_engine_identifier())
+        .filter_by(engine_class=engine_classname)
 
     h = []
     sim_vector = []

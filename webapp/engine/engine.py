@@ -7,7 +7,6 @@ import numpy.linalg as linalg
 #from matplotlib.mlab import PCA
 import scipy
 
-
 class Engine(metaclass=abc.ABCMeta):
 
     @classmethod
