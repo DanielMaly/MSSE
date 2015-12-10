@@ -1,9 +1,13 @@
+from flask.json import load
+from numpy.lib.scimath import log
+
 __author__ = 'dm'
 
 import abc
 import librosa
 import numpy
 import numpy.linalg as linalg
+from math import sqrt
 #from matplotlib.mlab import PCA
 import scipy
 
@@ -93,7 +97,7 @@ class MelEngine(Engine):
         :return: The measure of KL divergence between the two Gaussians
         """
 
-        print("jsem tu")
+    #    print("jsem tu")
         e1 = sig1['covariance']  # Covariance matrix of distribution 1
         e2 = sig2['covariance']  # Covariance matrix of distribution 2
         #m1 = sig1['means']
@@ -121,3 +125,36 @@ class MelEngine(Engine):
     @classmethod
     def get_engine_identifier(cls):
         return "Mel_scale_v01"
+
+
+class BeatEngine(Engine):
+
+    @classmethod
+    def euclidean_distance(cls,x,y):
+
+        #obe rady se zarovnaji na stejnou delku, uz maji orezane tiche konce
+        length = min(x.size, y.size)
+        x_sliced = x[:length]
+        y_sliced = y[:length]
+
+        #vrati se euklid. vzdalenost mezi polema
+        # return sqrt(sum(pow(a-b,2) for a, b in zip(x_sliced, y_sliced))) #nenormalizovana verze
+        return sqrt(sum(pow(a-b,2) for a, b in zip(x_sliced, y_sliced))/pow(length,2))
+
+    @classmethod
+    def extract_signature(cls, track_data, track_rate):
+
+        tempo, beats = librosa.beat.beat_track(y=track_data, sr=track_rate)
+
+        return {'tempo' : tempo ,'beats': beats}
+
+    @classmethod
+    def measure_similarity(cls, sig1, sig2):
+        print("srovnavam beaty :-) ")
+        dist = cls.euclidean_distance(sig1['beats']/sig1['tempo'],sig2['beats']/sig2['tempo']) #puvodne se pronasobovalo tempem, ale vraci pak horsi vysledky
+        similarity = 1/ (dist+1) #aby se pri stejnych songach nedelilo nulou, tak se pricita ta jednicka
+        return similarity
+
+    @classmethod
+    def get_engine_identifier(cls):
+        return "beatovaciEngine"

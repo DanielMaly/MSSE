@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 ALLOWED_UPLOAD_EXTENSIONS = {'mp3', 'wav', 'au'}
 DEFAULT_DATASET = "genres"
-DEFAULT_ENGINE = "MandelEllisEngine"
+DEFAULT_ENGINE = "BeatEngine"
 UPLOAD_FOLDER = "uploaded"
 
 
