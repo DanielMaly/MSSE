@@ -72,7 +72,7 @@ def process_search_results(results, uploaded_file):
 
 def search_results(path, dataset=DEFAULT_DATASET, engine=DEFAULT_ENGINE):
     (data, rate) = librosa.load(path)
-    return srch.search_greatest_similarity(data, rate, DEFAULT_ENGINE, DEFAULT_DATASET)
+    return srch.search_greatest_similarity(data, rate, engine, dataset)
 
 
 def allowed_file(filename):

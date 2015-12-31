@@ -2,7 +2,9 @@
  * Bootstrap v3.3.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- *//*! normalize.css v3.0.2 | MIT License | git.io/normalize */html {
+ */
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -165,7 +167,7 @@ input[type=search]::-webkit-search-decoration {
 fieldset {
   padding: .35em .625em .75em;
   margin: 0 2px;
-  border: 1px solid #c0c0c0;
+  border: 1px solid silver;
 }
 legend {
   padding: 0;
@@ -185,7 +187,8 @@ td,
 th {
   padding: 0;
 }
-/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */@media print {
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
   *,
   :before,
   :after {
@@ -6433,7 +6436,7 @@ button.close {
   display: block;
   height: 100%;
   width: 0;
-  background: #008000;
+  background: green;
 }
 .dropzone .dz-preview .dz-error-message {
   color: red;
@@ -6716,7 +6719,7 @@ button.close {
   opacity: 1;
 }
 .dropzone .dz-preview.dz-image-preview {
-  background: #ffffff;
+  background: white;
 }
 .dropzone .dz-preview.dz-image-preview .dz-details {
   -webkit-transition: opacity 0.2s linear;
@@ -6910,7 +6913,7 @@ button.close {
   background: #be2626;
   background: linear-gradient(to bottom, #be2626, #a92222);
   padding: 0.5em 1.2em;
-  color: #ffffff;
+  color: white;
 }
 .dropzone .dz-preview .dz-error-message:after {
   content: '';
@@ -7331,7 +7334,7 @@ body {
   color: inherit;
 }
 .control {
-  border: 2.4000000000000004px solid #ee1b3b;
+  border: 2.4px solid #ee1b3b;
   border-radius: 50%;
   margin: 7px;
   padding: 6px;
@@ -7368,7 +7371,7 @@ body {
   height: 20.784px;
 }
 .control.pause .left {
-  border-right: 4.800000000000001px solid transparent;
+  border-right: 4.8px solid transparent;
 }
 .control.play .left {
   margin-left: 4px;

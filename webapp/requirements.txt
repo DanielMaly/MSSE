@@ -3,6 +3,7 @@
 flask==0.10.1
 flask_sqlalchemy>=0.7
 librosa>=0.4.1
+pulp>=1.6.1
 
 # libsamplerate-dev
 # scikits.samplerate z git@github.com:gregorias/samplerate.git

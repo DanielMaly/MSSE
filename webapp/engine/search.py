@@ -30,7 +30,10 @@ def search_greatest_similarity(data, rate, engine_classname, dataset_id, signatu
     for signature_record in signatures:
         sig_file = signature_record.path + ".npz"
         signature = numpy.load(sig_file)
+
+        print("measuring similarity with track " + signature_record.audio_track.name)
         similarity_measure = engine_class.measure_similarity(sig_track, signature)
+        print("similarity is " + str(similarity_measure))
         sim_vector.append(similarity_measure)
         sim_object = Similarity(signature_record, similarity_measure)
 
