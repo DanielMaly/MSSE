@@ -60,7 +60,6 @@ def process_search_results(results, uploaded_file):
             "signature_file": result["signature"].path,
             "name": result["signature"].audio_track.name,
             "similarity": "{0:.4f}".format(result["absolute_similarity"]),
-            "standardized_similarity": result["standardized_similarity"],
             "audio_url": audio_url_for_file(result["signature"].audio_track)
         })
 

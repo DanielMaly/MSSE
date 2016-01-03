@@ -26,7 +26,7 @@ def search_greatest_similarity(data, rate, engine_classname, dataset_id, signatu
         .filter_by(engine_class=engine_classname)
 
     h = []
-    sim_vector = []
+    similarities = []
     for signature_record in signatures:
         sig_file = signature_record.path + ".npz"
         signature = numpy.load(sig_file)
@@ -34,9 +34,13 @@ def search_greatest_similarity(data, rate, engine_classname, dataset_id, signatu
         print("measuring similarity with track " + signature_record.audio_track.name)
         similarity_measure = engine_class.measure_similarity(sig_track, signature)
         print("similarity is " + str(similarity_measure))
-        sim_vector.append(similarity_measure)
-        sim_object = Similarity(signature_record, similarity_measure)
 
+        sim_object = Similarity(signature_record, similarity_measure)
+        similarities.append(sim_object)
+
+    similarities = normalize_similarities(similarities, engine_class)
+
+    for sim_object in similarities:
         if len(h) < n_tracks:
             heapq.heappush(h, sim_object)
 
@@ -45,16 +49,38 @@ def search_greatest_similarity(data, rate, engine_classname, dataset_id, signatu
 
     h.sort()
     h = h[::-1]
-    sim_vector_np = numpy.array(sim_vector)
-    mn = numpy.mean(sim_vector_np)
-    sd = numpy.std(sim_vector_np)
 
     ret = []
     for s in h:
         ret.append({
             "absolute_similarity": s.similarity_measure,
-            "standardized_similarity": stats.chi2.cdf(s.similarity_measure, 5, mn, sd),
             "signature": s.signature
         })
 
     return ret
+
+
+def normalize_similarities(similarities, engine_class):
+    if isinstance(similarities[0].similarity_measure, dict):
+        # For every key in the dictionary, make minimum, maximum and range
+        weights = engine_class.get_partial_weights()
+        weight_sum = numpy.sum([weights[k] for k in weights])
+        for key in weights:
+            print("Normalizing " + key)
+            all_meaures = [s.similarity_measure[key] for s in similarities]
+            am_max = numpy.amax(all_meaures)
+            am_min = numpy.amin(all_meaures)
+            print("am_max: " + str(am_max) + "\t am_min: " + str(am_min))
+            sorted_measures = sorted(all_meaures)
+            for s in similarities:
+                # s.similarity_measure[key] = ((s.similarity_measure[key] - am_min) / (am_max - am_min))\
+                s.similarity_measure[key] = (sorted_measures.index(s.similarity_measure[key]) / len(sorted_measures))\
+                                            * weights[key] / weight_sum
+                if s.similarity_measure[key] == numpy.nan:
+                    s.similarity_measure[key] = 0
+
+        numpy.savez("similarities", similarities)
+        for s in similarities:
+            s.similarity_measure = numpy.sum([s.similarity_measure[key] for key in s.similarity_measure])
+
+    return similarities
