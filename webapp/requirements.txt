@@ -5,6 +5,7 @@ flask_sqlalchemy>=0.7
 librosa>=0.4.1
 pulp>=1.6.1
 
+# Nasleduji soft dependence
 # libsamplerate-dev
 # scikits.samplerate z git@github.com:gregorias/samplerate.git
 # ffmpeg pro podporu mp3 (pouze Ubuntu, na Win mozna neni potreba)
